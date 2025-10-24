@@ -1,8 +1,7 @@
-// components/Footer.js
-
 import Link from 'next/link';
 import Image from 'next/image';
-import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline';
+// Import MapPinIcon untuk Alamat
+import { EnvelopeIcon, PhoneIcon, MapPinIcon } from '@heroicons/react/24/outline';
 
 // Data Navigasi untuk Footer
 const navigation = {
@@ -40,17 +39,22 @@ export default function Footer() {
             </Link>
             <p className="text-sm leading-6 text-gray-400">Penyedia layanan Internet profesional dengan fokus pada stabilitas, kecepatan, dan layanan dukungan 24/7.</p>
             <div className="space-y-4">
+              {/* Email */}
               <div className="flex items-center text-sm text-gray-400">
-                <EnvelopeIcon className="h-5 w-5 mr-2 text-green-500" />
+                <EnvelopeIcon className="h-4 w-4 mr-2 text-green-500" /> {/* Diubah ke H-4 W-4 */}
                 <span>Email: info@quicknet.id</span>
               </div>
+
+              {/* Telepon */}
               <div className="flex items-center text-sm text-gray-400">
-                <PhoneIcon className="h-5 w-5 mr-2 text-green-500" />
+                <PhoneIcon className="h-4 w-4 mr-2 text-green-500" /> {/* Diubah ke H-4 W-4 */}
                 <span>Phone: 0851-1763-6502</span>
               </div>
-              <div className="flex items-center text-sm text-gray-400">
-                <PhoneIcon className="h-5 w-5 mr-2 text-green-500" />
-                <span>KP. BEBERA, Desa/Kelurahan Tenjolaya, Kec. Cicurug, Kab. Sukabumi, Provinsi Jawa Barat, Kode Pos: 44359</span>
+
+              {/* ALAMAT (FIX: Ikon MapPinIcon dan ukuran H-4 W-4) */}
+              <div className="flex items-center text-xs text-gray-400">
+                <MapPinIcon className="h-4 w-4 mr-2 text-green-500" />
+                <span>Kp.Bebera, Desa/Kelurahan Tenjolaya, Kec. Cicurug, Kab. Sukabumi, Provinsi Jawa Barat, Kode Pos: 44359</span>
               </div>
             </div>
           </div>
@@ -58,20 +62,22 @@ export default function Footer() {
           {/* Kolom 2 & 3: Navigasi */}
           <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             {/* Sub-Kolom 1: Solusi */}
-            <div>
-              <h3 className="text-sm font-semibold leading-6 text-white">Solusi Internet</h3>
-              <ul role="list" className="mt-6 space-y-4">
-                {navigation.solutions.map((item) => (
-                  <li key={item.name}>
-                    <Link href={item.href} className="text-sm leading-6 text-gray-300 hover:text-white">
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+            <div className="md:grid md:grid-cols-1 md:gap-8">
+              <div>
+                <h3 className="text-sm font-semibold leading-6 text-white">Solusi Internet</h3>
+                <ul role="list" className="mt-6 space-y-4">
+                  {navigation.solutions.map((item) => (
+                    <li key={item.name}>
+                      <Link href={item.href} className="text-sm leading-6 text-gray-300 hover:text-white">
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
-            {/* Sub-Kolom 2: Perusahaan & Legal */}
+            {/* Sub-Kolom 2 & 3: Perusahaan & Legal */}
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
                 <h3 className="text-sm font-semibold leading-6 text-white">Perusahaan</h3>
