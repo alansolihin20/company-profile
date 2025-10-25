@@ -3,8 +3,8 @@
 const stats = [
   { id: 1, name: 'SLA Uptime Jaringan', value: '99.9%' },
   { id: 2, name: 'Klien Korporat Terlayani', value: '0+' },
-  { id: 3, name: 'Total Panjang Jaringan FO (Km)', value: '1,500+' },
-  { id: 4, name: 'Tahun Pengalaman di Industri', value: '10+' },
+  { id: 3, name: 'Total Panjang Jaringan FO (Km)', value: '0+' },
+  { id: 4, name: 'Tahun Pengalaman di Industri', value: '0+' },
 ];
 
 export default function StatsSection() {
