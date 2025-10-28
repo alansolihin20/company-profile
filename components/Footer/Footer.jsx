@@ -1,31 +1,35 @@
-import Link from 'next/link';
-import Image from 'next/image';
+"use client";
+
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
 // Import MapPinIcon untuk Alamat
-import { EnvelopeIcon, PhoneIcon, MapPinIcon } from '@heroicons/react/24/outline';
+import { EnvelopeIcon, PhoneIcon, MapPinIcon } from "@heroicons/react/24/outline";
 
 // Data Navigasi untuk Footer
 const navigation = {
   solutions: [
-    { name: 'Dedicated Internet', href: '/services#dedicated' },
-    { name: 'Broadband Internet', href: '/services#broadband' },
-    { name: 'Co-location & Server', href: '/services#colocation' },
-    { name: 'Solusi Khusus B2B', href: '/services#b2b' },
+    { name: "Dedicated Internet", href: "/services#dedicated" },
+    { name: "Broadband Internet", href: "/services#broadband" },
+    { name: "Co-location & Server", href: "/services#colocation" },
+    { name: "Solusi Khusus B2B", href: "/services#b2b" },
   ],
   company: [
-    { name: 'Tentang QUICKNET', href: '/about' },
-    { name: 'Visi & Misi', href: '/about#mission' },
-    { name: 'Tim Kami', href: '/about#team' },
-    { name: 'SLA Jaringan', href: '/services#sla' },
+    { name: "Tentang QUICKNET", href: "/about" },
+    { name: "Visi & Misi", href: "/about#mission" },
+    { name: "Tim Kami", href: "/about#team" },
+    { name: "SLA Jaringan", href: "/services#sla" },
   ],
   legal: [
-    { name: 'Kebijakan Privasi', href: '/legal#privacy' },
-    { name: 'Syarat & Ketentuan', href: '/legal#terms' },
+    { name: "Kebijakan Privasi", href: "/legal#privacy" },
+    { name: "Syarat & Ketentuan", href: "/legal#terms" },
   ],
 };
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900" aria-labelledby="footer-heading">
+    // Membungkus seluruh footer dengan motion.footer untuk animasi fade-in
+    <motion.footer className="bg-gray-900" aria-labelledby="footer-heading" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6 }}>
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
@@ -35,6 +39,7 @@ export default function Footer() {
           <div className="space-y-8">
             <Link href="/">
               {/* Pastikan kamu punya versi logo putih/terang untuk background gelap */}
+              {/* Catatan: Ganti "/images/logo.png" dengan URL gambar yang sesuai. */}
               <Image className="h-8 w-auto" src="/images/logo.png" alt="Quicknet Nusantara Teknologi Logo" width={150} height={32} />
             </Link>
             <p className="text-sm leading-6 text-gray-400">Penyedia layanan Internet profesional dengan fokus pada stabilitas, kecepatan, dan layanan dukungan 24/7.</p>
@@ -112,6 +117,6 @@ export default function Footer() {
           <p className="text-xs leading-5 text-gray-400">&copy; {new Date().getFullYear()} PT QUICKNET NUSANTARA TEKNOLOGI. Hak Cipta Dilindungi.</p>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

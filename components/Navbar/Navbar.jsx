@@ -1,30 +1,47 @@
-'use client';
-// ❌ Hapus: import { useRouter } from 'next/router';
-// ❌ Hapus: import Link from 'next/link';
+"use client";
 
 // ✅ Ganti dengan import dari 'next/navigation'
-import { usePathname } from 'next/navigation';
-import Link from 'next/link'; // <--- Link tetap dari 'next/link' untuk versi 13+
-
-import { useState } from 'react';
-import Image from 'next/image';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Disclosure } from '@headlessui/react';
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { useState } from "react";
+import Image from "next/image";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Disclosure } from "@headlessui/react";
 
 // Data Navigasi
 const navigation = [
-  { name: 'Beranda', href: '/' },
-  { name: 'Tentang Kami', href: '/about' },
-  { name: 'Layanan', href: '/services' },
-  { name: 'Area Coverage', href: '/coverage' },
+  { name: "Beranda", href: "/" },
+  { name: "Tentang Kami", href: "/about" },
+  { name: "Layanan", href: "/services" },
+  { name: "Area Coverage", href: "/coverage" },
+];
+
+// Data Navigasi Tambahan (Tautan Legal & Sub-Halaman About)
+const additionalNavigation = [
+  { name: "Tim Kami", href: "/about#team" }, // Tautan ke bagian tim
+  { name: "Kebijakan Privasi", href: "/legal#privacy" },
+  { name: "Syarat & Ketentuan", href: "/legal#terms" },
 ];
 
 export default function Navbar() {
   // ✅ Panggil usePathname dari 'next/navigation'
   const pathname = usePathname();
 
-  // ✅ isCurrent menggunakan pathname
-  const isCurrent = (href) => pathname === href;
+  // ✅ isCurrent menggunakan pathname. Perhatikan tautan hash harus dicek secara parsial.
+  const isCurrent = (href) => {
+    // Untuk tautan utama ('/', '/about', etc.)
+    if (!href.includes("#")) {
+      return pathname === href;
+    }
+    // Untuk tautan hash, cek jika pathname cocok dengan root-nya (e.g. /about)
+    const rootPath = href.split("#")[0];
+    return pathname === rootPath;
+  };
+
+  // Kelas umum untuk tautan yang tidak aktif di Mobile
+  const baseMobileClass = "block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900";
+  // Kelas aktif untuk tautan di Mobile
+  const activeMobileClass = "block rounded-md bg-indigo-50 px-3 py-2 text-base font-medium text-indigo-700";
 
   return (
     <Disclosure as="nav" className="bg-white shadow-md sticky top-0 z-50">
@@ -55,13 +72,13 @@ export default function Navbar() {
                       <Link
                         key={item.name}
                         href={item.href}
-                        // ✅ Logikanya sudah benar
+                        // ✅ Logikanya sudah benar untuk tautan utama
                         className={
                           isCurrent(item.href)
-                            ? 'border-b-2 border-green-500 text-gray-900 px-3 py-2 text-sm font-medium' // Class aktif
-                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 px-3 py-2 text-sm font-medium transition duration-150' // Class non-aktif
+                            ? "border-b-2 border-green-500 text-gray-900 px-3 py-2 text-sm font-medium" // Class aktif
+                            : "text-gray-600 hover:border-b-2 hover:border-gray-200 hover:text-gray-900 px-3 py-2 text-sm font-medium transition duration-150" // Class non-aktif
                         }
-                        aria-current={isCurrent(item.href) ? 'page' : undefined}
+                        aria-current={isCurrent(item.href) ? "page" : undefined}
                       >
                         {item.name}
                       </Link>
@@ -91,14 +108,26 @@ export default function Navbar() {
           {/* Mobile Menu Content */}
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
+              {/* Tautan Utama */}
               {navigation.map((item) => (
+                <Disclosure.Button key={item.name} as={Link} href={item.href} className={isCurrent(item.href) ? activeMobileClass : baseMobileClass} aria-current={isCurrent(item.href) ? "page" : undefined}>
+                  {item.name}
+                </Disclosure.Button>
+              ))}
+
+              {/* Garis pemisah untuk tautan tambahan */}
+              <div className="py-2">
+                <hr className="border-gray-200" />
+              </div>
+
+              {/* Tautan Tambahan (Legal & Tim) */}
+              {additionalNavigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
                   as={Link}
                   href={item.href}
-                  // ✅ Logikanya sudah benar
-                  className={isCurrent(item.href) ? 'block rounded-md bg-indigo-50 px-3 py-2 text-base font-medium text-indigo-700' : 'block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900'}
-                  aria-current={isCurrent(item.href) ? 'page' : undefined}
+                  // Tautan tambahan biasanya tidak aktif secara visual di Navbar, kecuali berada di path root yang sama.
+                  className={baseMobileClass}
                 >
                   {item.name}
                 </Disclosure.Button>

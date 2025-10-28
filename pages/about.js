@@ -25,6 +25,7 @@ export default function About() {
 
         {/* 2. Visi, Misi, dan Nilai Inti */}
         <MissionVision />
+        
 
         {/* 3. Kredibilitas dalam Angka (Reusable) */}
         <StatsSection />

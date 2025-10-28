@@ -1,32 +1,45 @@
-// components/ContactFormSection.js
+"use client";
 
-import { BuildingOffice2Icon, EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline';
+import { motion } from "framer-motion";
+import { BuildingOffice2Icon, EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 
 // Data Kontak Perusahaan
 const contactInfo = [
   {
-    name: 'Alamat Kantor Pusat',
-    description: 'Kp. Bebera, Desa/Kelurahan Tenjolaya, Kec. Cicurug, Kab. Sukabumi, Provinsi Jawa Barat, Kode Pos: 44359',
+    name: "Alamat Kantor Pusat",
+    description: "Kp. Bebera, Desa/Kelurahan Tenjolaya, Kec. Cicurug, Kab. Sukabumi, Provinsi Jawa Barat, Kode Pos: 44359",
     icon: BuildingOffice2Icon,
   },
   {
-    name: 'Email Dukungan & Sales',
-    description: 'info@quicknet.id',
+    name: "Email Dukungan & Sales",
+    description: "info@quicknet.id",
     icon: EnvelopeIcon,
   },
   {
-    name: 'Telepon & WhatsApp',
-    description: '0851-1763-6502',
+    name: "Telepon & WhatsApp",
+    description: "0851-1763-6502",
     icon: PhoneIcon,
   },
 ];
 
 export default function ContactFormSection() {
+  // Animasi untuk Kolom Kiri (Info dan Peta)
+  const leftColumnVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8 } },
+  };
+
+  // Animasi untuk Kolom Kanan (Formulir)
+  const rightColumnVariants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8, delay: 0.2 } },
+  };
+
   return (
     <div className="relative isolate bg-white">
       <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
-        {/* Kolom Kiri: Formulir Kontak */}
-        <div className="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48">
+        {/* Kolom Kiri: Informasi Kontak & Peta - Dianimasikan */}
+        <motion.div className="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48" initial="hidden" whileInView="visible" variants={leftColumnVariants} viewport={{ once: true, amount: 0.3 }}>
           <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900">Minta Penawaran Terbaik</h2>
             <p className="mt-6 text-lg leading-8 text-gray-600">Silakan isi formulir di bawah ini dan tim sales dedicated kami akan segera menghubungi Anda dalam waktu 1x24 jam.</p>
@@ -47,10 +60,9 @@ export default function ContactFormSection() {
               ))}
             </dl>
 
-            {/* Peta Lokasi (Placeholder) */}
+            {/* Peta Lokasi */}
             <div className="mt-12">
               <h3 className="text-xl font-bold text-gray-900 mb-4">Lokasi Kami</h3>
-              {/* Gunakan iframe Google Maps jika ada alamat spesifik */}
               <div className="aspect-w-16 aspect-h-9 overflow-hidden rounded-xl shadow-lg">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d5416.856682071173!2d106.76271899999999!3d-6.7645209999999985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwNDUnNTIuMyJTIDEwNsKwNDUnNDUuOCJF!5e1!3m2!1sid!2sid!4v1761320442302!5m2!1sid!2sid"
@@ -65,10 +77,10 @@ export default function ContactFormSection() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Kolom Kanan: Formulir Detail */}
-        <form action="#" method="POST" className="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48">
+        {/* Kolom Kanan: Formulir Detail - Dianimasikan */}
+        <motion.form action="#" method="POST" className="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48" initial="hidden" whileInView="visible" variants={rightColumnVariants} viewport={{ once: true, amount: 0.3 }}>
           <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
             <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
               {/* Nama Perusahaan */}
@@ -192,7 +204,7 @@ export default function ContactFormSection() {
                     rows={4}
                     className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     placeholder="Sebutkan lokasi pemasangan (alamat lengkap) dan perkiraan kebutuhan bandwidth (misal: 100 Mbps Dedicated)."
-                    defaultValue={''}
+                    defaultValue={""}
                   />
                 </div>
               </div>
@@ -206,7 +218,7 @@ export default function ContactFormSection() {
               </button>
             </div>
           </div>
-        </form>
+        </motion.form>
       </div>
     </div>
   );
