@@ -4,8 +4,8 @@ import "../globals.css";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 // Anggap komponen ini sudah Anda definisikan
-import Navbar from "../components/Navbar/Navbar";
-import Footer from "../components/Footer/Footer";
+import Navbar from "@/components/Navbar/Navbar";
+import Footer from "@/components/Footer/Footer";
 
 // --- Konten Dokumen Legal (Ditempatkan Langsung sebagai String untuk menghindari masalah 'Unknown module type') ---
 
