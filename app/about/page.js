@@ -1,8 +1,8 @@
 // pages/about.js
 
-import '../app/globals.css';
-import Navbar from '../components/Navbar/Navbar';
-import Footer from '../components/Footer/Footer';
+import '../globals.css';
+import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
 import React from 'react';
 import AboutHero from '@/components/AboutHero/AboutHero';
 import MissionVision from '@/components/MissionVision/MissionVision';

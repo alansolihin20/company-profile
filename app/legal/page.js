@@ -1,6 +1,6 @@
 "use client";
 
-import "../app/globals.css";
+import "..globals.css";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 // Anggap komponen ini sudah Anda definisikan

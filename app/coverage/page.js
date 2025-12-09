@@ -1,10 +1,10 @@
 // pages/coverage.js
 
-import Navbar from '../components/Navbar/Navbar';
-import Footer from '../components/Footer/Footer';
-import CoverageHero from '../components/CoverageHero/CoverageHeo';
-import CoverageMapSection from '../components/CoverageMapSection/CoverageMapSection'; // Komponen utama peta
-import CTABanner from '../components/CTABanner/CTABanner'; // CTA untuk Inquiry
+import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
+import CoverageHero from '../../components/CoverageHero/CoverageHeo';
+import CoverageMapSection from '../../components/CoverageMapSection/CoverageMapSection'; // Komponen utama peta
+import CTABanner from '../../components/CTABanner/CTABanner'; // CTA untuk Inquiry
 
 export default function Coverage() {
   return (

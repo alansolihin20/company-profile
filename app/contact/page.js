@@ -1,8 +1,8 @@
 // pages/contact.js
-import '../app/globals.css';
-import Navbar from '../components/Navbar/Navbar';
-import Footer from '../components/Footer/Footer';
-import ContactFormSection from '../components/ContactFormSection/ContactFormSection';
+import '../globals.css';
+import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
+import ContactFormSection from '../../components/ContactFormSection/ContactFormSection';
 
 export default function Contact() {
   return (
