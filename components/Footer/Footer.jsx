@@ -58,9 +58,13 @@ export default function Footer() {
 
               {/* ALAMAT (FIX: Ikon MapPinIcon dan ukuran H-4 W-4) */}
               <div className="flex items-center text-xs text-gray-400">
-                <MapPinIcon className="h-4 w-4 mr-2 text-green-500" />
-                <span>Kp.Bebera, Desa/Kelurahan Tenjolaya, Kec. Cicurug, Kab. Sukabumi, Provinsi Jawa Barat, Kode Pos: 44359</span>
-              </div>
+                <MapPinIcon className="h-10 w-10 mr-2 text-green-500" />
+                <span>
+                  Perumahan Bumi Mutiara Indah 5 (Blok B, No 08)
+                  Jl. Cibuntu satu, Kp. Pasir Tengah RT 07 RW 03 Jawa Barat,
+                  Kab. Sukabumi, Kec. Cicurug, Desa Kuta jaya
+                </span>
+                </div>
             </div>
           </div>
 
