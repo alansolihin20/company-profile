@@ -3,12 +3,10 @@
 import "../globals.css";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
-// Anggap komponen ini sudah Anda definisikan
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 
-// --- Konten Dokumen Legal (Ditempatkan Langsung sebagai String untuk menghindari masalah 'Unknown module type') ---
-
+// --- Konten Dokumen Legal ---
 const PrivacyPolicyContent = `# Kebijakan Privasi PT QUICKNET NUSANTARA TEKNOLOGI
 
 **Berlaku Efektif: 1 Januari 2025**
@@ -97,17 +95,18 @@ QUICKNET berhak memutus Layanan tanpa pemberitahuan jika:
 
 Ketentuan ini diatur dan ditafsirkan sesuai dengan hukum Republik Indonesia. Setiap sengketa yang timbul dari Ketentuan ini akan diselesaikan melalui musyawarah mufakat, dan jika tidak tercapai, akan diselesaikan di pengadilan yang memiliki yurisdiksi di Jakarta.`;
 
-// --- Akhir Konten Dokumen Legal ---
-
-// Komponen kustom untuk menerapkan style pada paragraf
+// 🛠️ PERBAIKAN UTAMA: Memaksa semua komponen teks Markdown menggunakan class warna terang dari Tailwind
 const components = {
-  p: ({ node, ...props }) => <p style={{ textAlign: "justify", lineHeight: "1.75" }} {...props} />,
-  li: ({ node, ...props }) => <li style={{ lineHeight: "1.75" }} {...props} />,
+  h1: ({ node, ...props }) => <h1 className="text-2xl sm:text-3xl font-black text-white mt-8 mb-4 tracking-tight" {...props} />,
+  h2: ({ node, ...props }) => <h2 className="text-xl sm:text-2xl font-extrabold text-white mt-8 mb-4 border-b border-slate-800/80 pb-2" {...props} />,
+  h3: ({ node, ...props }) => <h3 className="text-base sm:text-lg font-bold text-blue-400 mt-6 mb-2" {...props} />,
+  p: ({ node, ...props }) => <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed my-4 text-justify" {...props} />,
+  li: ({ node, ...props }) => <li className="text-sm sm:text-base text-slate-300 font-light leading-relaxed my-2 list-disc list-inside pl-1" {...props} />,
+  ul: ({ node, ...props }) => <ul className="my-4 pl-2" {...props} />,
+  strong: ({ node, ...props }) => <strong className="font-bold text-amber-400" {...props} />,
 };
 
-// Fungsi untuk menentukan status awal berdasarkan URL hash
 const getInitialActiveSection = () => {
-  // Pastikan window ada di sisi klien sebelum mengaksesnya
   if (typeof window !== "undefined") {
     const hash = window.location.hash.substring(1);
     if (hash === "terms") {
@@ -118,23 +117,19 @@ const getInitialActiveSection = () => {
 };
 
 export default function Legal() {
-  // Menggunakan fungsi inisialisasi untuk status awal
   const [activeSection, setActiveSection] = useState(getInitialActiveSection);
   const privacyRef = useRef(null);
   const termsRef = useRef(null);
 
-  // Efek untuk mengelola navigasi hash (fragment identifier)
   useEffect(() => {
-    const hash = window.location.hash.substring(1); // Ambil hash tanpa '#'
+    const hash = window.location.hash.substring(1);
 
-    // Logika scroll, tidak lagi mengatur setActiveSection di sini
     if (hash === "terms" && termsRef.current) {
       termsRef.current.scrollIntoView({ behavior: "smooth" });
     } else if (hash === "privacy" && privacyRef.current) {
       privacyRef.current.scrollIntoView({ behavior: "smooth" });
     }
 
-    // Listener untuk perubahan hash setelah mount (saat user mengklik back/forward)
     const handleHashChange = () => {
       const newHash = window.location.hash.substring(1);
       if (newHash === "terms") {
@@ -142,84 +137,95 @@ export default function Legal() {
       } else if (newHash === "privacy") {
         setActiveSection("privacy");
       } else {
-        // Default jika hash dihapus atau tidak dikenal
         setActiveSection("privacy");
       }
     };
 
     window.addEventListener("hashchange", handleHashChange);
-
     return () => {
       window.removeEventListener("hashchange", handleHashChange);
     };
-  }, []); // Efek hanya berjalan saat mount
+  }, []);
 
-  // Fungsi yang dipanggil saat tombol tab diklik
   const handleTabClick = (section) => {
     setActiveSection(section);
-    // Tambahkan hash ke URL tanpa memicu reload
     window.history.pushState(null, "", `#${section}`);
   };
 
   return (
     <>
-      {/* Asumsi Navbar dan Footer sudah ada */}
       <Navbar />
 
-      <main className="pt-20 bg-gray-50 min-h-screen">
+      <main className="relative isolate pt-20 bg-[#010614] min-h-screen overflow-hidden">
+        
+        {/* Ambient Glow */}
+        <div className="absolute top-0 right-1/4 -z-10 h-[400px] w-[400px] rounded-full bg-blue-600/5 blur-[130px]" />
+        <div className="absolute bottom-1/3 left-1/4 -z-10 h-[400px] w-[400px] rounded-full bg-amber-500/5 blur-[130px]" />
+
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12 sm:py-24">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Syarat & Ketentuan</h1>
-            <p className="mt-4 text-xl text-gray-600">PT QUICKNET NUSANTARA TEKNOLOGI.</p>
-            <p className="mt-4 text-xl text-gray-600">Transparansi dan kejelasan adalah prioritas kami.</p>
+          
+          {/* Header Judul Rata Kiri */}
+          <div className="text-center lg:text-left mb-16 flex flex-col items-center lg:items-start">
+            <p className="text-xs sm:text-sm font-bold uppercase tracking-widest text-amber-500">Legal Dokumen</p>
+            <h1 className="mt-3 text-4xl font-black tracking-tight text-white sm:text-5xl leading-tight">Syarat & Ketentuan</h1>
+            <p className="mt-4 text-base sm:text-lg text-slate-400 font-light max-w-2xl">
+              Transparansi dan kejelasan adalah prioritas utama kami di PT QUICKNET NUSANTARA TEKNOLOGI.
+            </p>
           </div>
 
-          {/* Tab/Menu Navigasi Internal */}
-          <div className="flex justify-center space-x-4 mb-12 border-b border-gray-200">
+          {/* Tab/Menu Navigasi */}
+          <div className="flex justify-center lg:justify-start space-x-6 mb-12 border-b border-slate-900">
             <a
               href="#privacy"
-              // Mengganti onClick={() => setActiveSection("privacy")}
               onClick={(e) => {
                 e.preventDefault();
                 handleTabClick("privacy");
                 privacyRef.current?.scrollIntoView({ behavior: "smooth" });
               }}
-              className={`pb-3 px-4 text-lg font-medium transition duration-150 ${activeSection === "privacy" ? "border-b-4 border-indigo-600 text-indigo-700" : "text-gray-500 hover:text-gray-700"}`}
+              className={`pb-3 px-2 text-sm sm:text-base font-bold uppercase tracking-wider transition duration-150 ${
+                activeSection === "privacy" 
+                  ? "border-b-2 border-blue-500 text-blue-400" 
+                  : "text-slate-500 hover:text-slate-300"
+              }`}
             >
               Kebijakan Privasi
             </a>
             <a
               href="#terms"
-              // Mengganti onClick={() => setActiveSection("terms")}
               onClick={(e) => {
                 e.preventDefault();
                 handleTabClick("terms");
                 termsRef.current?.scrollIntoView({ behavior: "smooth" });
               }}
-              className={`pb-3 px-4 text-lg font-medium transition duration-150 ${activeSection === "terms" ? "border-b-4 border-indigo-600 text-indigo-700" : "text-gray-500 hover:text-gray-700"}`}
+              className={`pb-3 px-2 text-sm sm:text-base font-bold uppercase tracking-wider transition duration-150 ${
+                activeSection === "terms" 
+                  ? "border-b-2 border-blue-500 text-blue-400" 
+                  : "text-slate-500 hover:text-slate-300"
+              }`}
             >
               Syarat & Ketentuan
             </a>
           </div>
 
-          {/* Konten Dokumen */}
-          <div className="bg-white p-8 sm:p-12 rounded-xl shadow-lg prose max-w-none prose-indigo">
+          {/* 🛠️ WADAH DOKUMEN: Menghapus class 'prose' agar tidak bentrok dengan kustom komponen kita */}
+          <div className="bg-[#030e2f]/20 border border-slate-800/80 p-6 sm:p-12 rounded-2xl shadow-2xl backdrop-blur-md max-w-none">
+            
             {/* Bagian Kebijakan Privasi */}
             <div id="privacy" ref={privacyRef} className="pt-12 -mt-12">
               <ReactMarkdown components={components}>{PrivacyPolicyContent}</ReactMarkdown>
             </div>
 
-            <hr className="my-16 border-gray-200" />
+            <hr className="my-16 border-slate-800/60" />
 
             {/* Bagian Syarat & Ketentuan */}
             <div id="terms" ref={termsRef} className="pt-12 -mt-12">
               <ReactMarkdown components={components}>{TermsAndConditionsContent}</ReactMarkdown>
             </div>
           </div>
+          
         </div>
       </main>
 
-      {/* Asumsi Footer sudah ada */}
       <Footer />
     </>
   );

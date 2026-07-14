@@ -55,8 +55,9 @@ export default function Home() {
                 <FaRocket className="w-3.5 h-3.5" /> Lihat Layanan
               </Link>
               <Link 
-                href="https://wa.me/yournumber" 
+                href="https://wa.me/6285117636502"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-md border border-slate-700 bg-transparent px-6 py-3 text-xs font-bold text-white hover:bg-slate-800/40 transition duration-150"
               >
                 <FaWhatsapp className="w-4 h-4 text-green-500" /> Hubungi Sales
